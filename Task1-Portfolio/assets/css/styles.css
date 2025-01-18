@@ -1,0 +1,111 @@
+*
+{
+  margin:0;
+  padding:0;
+}
+
+body {
+  font-family: "Newsreader", serif;
+  background-color: #164e87;
+  background-image: linear-gradient(62deg, #7aaada 0%, #8c26eb 100%);
+  color: #000000;
+}
+
+/* Navigation Bar Links */
+nav ul{
+  font-weight: bolder;
+}
+
+h4,
+h3,
+h2,
+h1 {
+  font-family: "DM Serif Text", serif;
+}
+
+/*Left Sidebar with Linkedin Embed*/
+.sidebar1 {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  box-shadow: 0px 10px 5px rgba(16, 1, 1, 0.1);
+}
+
+/*Center div with the profile image and about section */
+.content-box {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 10px 5px rgba(16, 1, 1, 0.1);
+}
+
+.content-box h4 {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.content-box ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+
+/*Two divs inside the right sidebar containing Skills and Internships */
+.rsidebar1,
+.rsidebar2 {
+  margin-top: 23px;
+  box-shadow: 0px 10px 5px rgba(16, 1, 1, 0.1);
+}
+
+/*The content of right sidebar */
+.content {
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 5px;
+}
+
+/*Animation for the divs and resume button on hovering upon them*/
+.btn,
+.rsidebar1,
+.rsidebar2,
+.custom-div,
+svg {
+  transition: transform 0.8s ease;
+}
+
+/*Animation for the divs and resume button on hovering upon them*/
+.rsidebar1:hover,
+.rsidebar2:hover,
+.btn:hover,
+.custom-div:hover,
+svg:hover {
+  transform: scale(1.1);
+}
+
+/* The three divs in row2 containing certification, basic info and projects */
+.custom-div {
+  height: 250px;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0px 10px 5px rgba(16, 1, 1, 0.1);
+}
+
+/*The content of each div in row2 */
+.pcontent {
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 5px;
+}
+
+footer {
+  background-color: transparent;
+  color: #000000;
+  border-radius: 8px;
+  padding: 15px 0;
+}
+
