@@ -43,30 +43,100 @@ const addTaskToList = (list, taskText) => {
   list.appendChild(li); // Append the task to the provided list (either To-Do or Complete)
 };
 
+//Toaster message functionality for adding tasks
+function showAddBox() {
+  const addBox = document.createElement("div"); // Create the undo box container
+  addBox.className = "add-box"; // Assign a class for styling
+  addBox.textContent = "Task added to To-Do List. "; // Text content for undo message
+
+  // Style the add box to appear at the bottom-right corner
+  addBox.style.position = "fixed";
+  addBox.style.bottom = "20px";
+  addBox.style.right = "20px";
+  addBox.style.padding = "10px";
+  addBox.style.backgroundColor = "#333";
+  addBox.style.color = "#fff";
+  addBox.style.borderRadius = "5px";
+  addBox.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  addBox.style.zIndex = "9999";
+
+  // Create the progress bar container and progress bar
+  const progressBarContainer = document.createElement("div");
+  progressBarContainer.style.position = "relative";
+  progressBarContainer.style.width = "100%";
+  progressBarContainer.style.height = "5px";
+  progressBarContainer.style.backgroundColor = "#ddd";
+  progressBarContainer.style.marginTop = "2px";
+  addBox.appendChild(progressBarContainer);
+
+  const progressBar = document.createElement("div");
+  progressBar.style.position = "absolute";
+  progressBar.style.top = "0";
+  progressBar.style.left = "0";
+  progressBar.style.height = "100%";
+  progressBar.style.width = "100%";
+  progressBar.style.backgroundColor = "#f0a500";
+  progressBarContainer.appendChild(progressBar);
+
+  // Append the add box to the body
+  document.body.appendChild(addBox);
+
+  // Countdown timer for the progress bar
+  let timeLeft = 5; // 5 seconds countdown
+  const interval = setInterval(() => {
+    timeLeft -= 0.1; // Decrease time by 0.1 seconds every interval
+    progressBar.style.width = `${(timeLeft / 5) * 100}%`; // Update progress bar width
+
+    if (timeLeft <= 0) {
+      clearInterval(interval); // Stop the countdown
+      addBox.remove(); // Remove the box when time is up
+    }
+  }, 100); // Update every 100ms
+
+  // Automatically hide the box after 5 seconds
+  setTimeout(() => {
+    clearInterval(interval); // Stop the progress bar countdown
+    addBox.remove();
+  }, 5000); // Hide after 5 seconds
+}
+
+const isDuplicateTask = (taskText) => {
+  const tasks = [
+    ...todoList.children,
+    ...completeList.children
+  ].map((task) => task.textContent.trim());
+  return tasks.includes(taskText.trim());
+};
+
 // Event listener for adding a task when "Enter" key is pressed in the input field
 taskInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     const task = taskInput.value.trim(); // Get the task input value
     if (task === "") {
       alert("Please enter a task!"); // Show an alert if the input is empty
-    }
-    if (task) {
+    } else if (isDuplicateTask(task)) {
+      alert("Task already exists!"); // Show an alert if the task is a duplicate
+    } else {
       addTaskToList(todoList, task); // Add the task to the To-Do list
       taskInput.value = ""; // Clear the input field
+      showAddBox();
       saveData(); // Save updated data to localStorage
     }
   }
 });
+
 
 // Event listener for adding a task when the "Add Task" button is clicked
 addTaskBtn.addEventListener("click", () => {
   const task = taskInput.value.trim(); // Get the task input value
   if (task === "") {
     alert("Please enter a task!"); // Show an alert if the input is empty
-  }
-  if (task) {
+  } else if (isDuplicateTask(task)) {
+    alert("Task already exists!"); // Show an alert if the task is a duplicate
+  } else {
     addTaskToList(todoList, task); // Add the task to the To-Do list
     taskInput.value = ""; // Clear the input field
+    showAddBox();
     saveData(); // Save updated data to localStorage
   }
 });
@@ -197,6 +267,62 @@ function undoAction() {
   }
 }
 
+function showCompleteBox() {
+  const completeListBox = document.createElement("div"); // Create the undo box container
+  completeListBox.className = "completelist-box"; // Assign a class for styling
+  completeListBox.textContent = "Task added to Complete List. "; // Text content for undo message
+
+  //Style the complete box to appear at the bottom-right corner
+  completeListBox.style.position = "fixed";
+  completeListBox.style.bottom = "20px";
+  completeListBox.style.right = "20px";
+  completeListBox.style.padding = "10px";
+  completeListBox.style.backgroundColor = "#333";
+  completeListBox.style.color = "#fff";
+  completeListBox.style.borderRadius = "5px";
+  completeListBox.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  completeListBox.style.zIndex = "9999";
+
+  // Create the progress bar container and progress bar
+  const progressBarContainer = document.createElement("div");
+  progressBarContainer.style.position = "relative";
+  progressBarContainer.style.width = "100%";
+  progressBarContainer.style.height = "5px";
+  progressBarContainer.style.backgroundColor = "#ddd";
+  progressBarContainer.style.marginTop = "2px";
+  completeListBox.appendChild(progressBarContainer);
+
+  const progressBar = document.createElement("div");
+  progressBar.style.position = "absolute";
+  progressBar.style.top = "0";
+  progressBar.style.left = "0";
+  progressBar.style.height = "100%";
+  progressBar.style.width = "100%";
+  progressBar.style.backgroundColor = "#f0a500";
+  progressBarContainer.appendChild(progressBar);
+
+  // Append the add box to the body
+  document.body.appendChild(completeListBox);
+
+  // Countdown timer for the progress bar
+  let timeLeft = 5; // 5 seconds countdown
+  const interval = setInterval(() => {
+    timeLeft -= 0.1; // Decrease time by 0.1 seconds every interval
+    progressBar.style.width = `${(timeLeft / 5) * 100}%`; // Update progress bar width
+
+    if (timeLeft <= 0) {
+      clearInterval(interval); // Stop the countdown
+      completeListBox.remove(); // Remove the box when time is up
+    }
+  }, 100); // Update every 100ms
+
+  // Automatically hide the box after 5 seconds
+  setTimeout(() => {
+    clearInterval(interval); // Stop the progress bar countdown
+    completeListBox.remove();
+  }, 5000); // Hide after 5 seconds
+}
+
 // Event listener to move tasks from To-Do list to Complete list
 moveToComplete.addEventListener("click", () => {
   if (todoList.children.length === 0) {
@@ -215,6 +341,7 @@ moveToComplete.addEventListener("click", () => {
   selectedTasks.forEach((task) => {
     task.classList.remove("active"); // Remove the selection
     completeList.appendChild(task); // Append task to Complete list
+    showCompleteBox();
   });
   saveData(); // Save updated data to localStorage
 });
@@ -237,6 +364,7 @@ moveToTodo.addEventListener("click", () => {
   selectedTasks.forEach((task) => {
     task.classList.remove("active"); // Remove the selection
     todoList.appendChild(task); // Append task back to To-Do list
+    showAddBox(); // Show toaster message
   });
   saveData(); // Save updated data to localStorage
 });
