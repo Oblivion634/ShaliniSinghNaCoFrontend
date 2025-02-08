@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#main_body {
+  height: 60vh;
+}
+
+#box1 {
+  width: 40vw;
+  min-height: 50vh;
+}
+
+#heading-box1 {
+  background-color: rgb(247, 189, 189);
+}
+
+#box2 {
+  width: 40vw;
+  min-height: 50vh;
+}
+
+#heading-box2 {
+  background-color: rgb(172, 255, 172);
+}
+
+#heading-select {
+  font-size: larger;
+}
+
+#color-box {
+  background-color: rgb(179, 179, 254);
+}
+
+.color-box-column {
+  width: 33%;
+  min-height: 5vh;
+}
+
+#color-generator {
+  height: 20vh;
+}
+
+#color-generator-button {
+  background-color: #672a4e;
+  font-size: large;
+  cursor: pointer;
+}
