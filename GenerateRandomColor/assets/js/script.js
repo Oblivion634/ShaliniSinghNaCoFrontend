@@ -229,6 +229,8 @@ function generateRandomColor() {
   inner_main_new_element.style.display = "flex";
   inner_main_new_element.style.marginLeft = "10%";
   inner_main_new_element.style.marginRight = "10%";
+  inner_main_new_element.style.marginTop = "3%";
+  inner_main_new_element.style.marginBottom = "2%";
   inner_main_new_element.style.justifyContent = "space-between";
 
   ["RGB Float Values", "RGB Hexadecimal Values", "Display"].forEach(
